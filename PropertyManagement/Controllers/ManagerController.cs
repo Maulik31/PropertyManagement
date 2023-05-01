@@ -13,7 +13,7 @@ namespace PropertyManagement.Controllers
     public class ManagerController : Controller
     {
         private RentalManagemetEntities1 db = new RentalManagemetEntities1();
-        // GET: Manager
+       
 
         public ActionResult Login()
         {
@@ -156,7 +156,7 @@ namespace PropertyManagement.Controllers
             return View(building);
         }
 
-        // GET: Buildings/Delete/5
+        
         public ActionResult BuildingDelete(string id)
         {
             if (id == null)
@@ -171,7 +171,7 @@ namespace PropertyManagement.Controllers
             return View(building);
         }
 
-        // POST: Buildings/Delete/5
+     
         [HttpPost, ActionName("BuildingDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult BuildingDeleteConfirmed(string id)
@@ -336,9 +336,7 @@ namespace PropertyManagement.Controllers
             return View();
         }
 
-        // POST: Messages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MessageReply([Bind(Include = "Message_Id,Manager_Id,Tenant_Id,Message1")] Message message)
@@ -462,7 +460,7 @@ namespace PropertyManagement.Controllers
             return View(appointments.ToList());
         }
 
-        // GET: Appointments/Create
+        
         public ActionResult AppointmentCreate()
         {
             ViewBag.Manager_Id = new SelectList(db.Managers, "Manager_Id", "FirstName");
