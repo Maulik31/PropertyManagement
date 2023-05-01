@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5aa9b192148047468e372e6cd2952051" Name="Diagram1">
+        <EntityTypeShape EntityType="RentalManagemetModel.Admin" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Appartment" Width="1.5" PointX="3.625" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Building" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Event" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Manager" Width="1.5" PointX="3.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Tenant" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Appartments_Tenants" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Events_Buildings" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Events_Managers" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Appartments_Buildings1" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Message" Width="1.5" PointX="9" PointY="5.125" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Message_Manager" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Message_Tenant" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Events_Buildings1" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Events_Managers1" />
+        <EntityTypeShape EntityType="RentalManagemetModel.Appointment" Width="1.5" PointX="6" PointY="4.25" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Appointments_Manager" />
+        <AssociationConnector Association="RentalManagemetModel.FK_Appointments_Tenant" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<PropertyManagement.Models.Tenant>
+
+@{
+    ViewBag.Title = "Tenant";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<h2>Tenants</h2>
+
+<div class="form-horizontal">
+    <hr />
+
+    <div class="form-group form-control">
+        @using (@Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <label class="form-label">Search By:</label>
+            <div class="form-check form-check-inline">
+                @Html.RadioButton("SearchBy", "FirstName")
+                <label class="form-check-label" for="inlineRadio1">First Name</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.RadioButton("SearchBy", "LastName")
+                <label class="form-check-label" for="inlineRadio1">Last Name</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.RadioButton("SearchBy", "City")
+                <label class="form-check-label" for="inlineRadio1">City</label>
+            </div>
+
+            @Html.TextBox("search")
+            <input type="submit" value="search" class="btn btn-outline-primary" />
+        }
+    </div>
+
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Province)
+        </th>
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Province)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "TenantEdit", new { id = item.Tenant_Id }) |
+                @Html.ActionLink("Delete", "TenantDelete", new { id = item.Tenant_Id })
+            </td>
+        </tr>
+    }
+
+</table>

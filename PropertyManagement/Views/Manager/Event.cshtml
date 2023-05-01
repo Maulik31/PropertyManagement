@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PropertyManagement.Models.Event>
+
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Manager/_LayoutManager.cshtml";
+}
+
+<h2>Event</h2>
+
+<p>
+    @Html.ActionLink("Create New", "EventCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Building1.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manager1.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building1.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manager1.FirstName)
+        </td>
+        <td>
+          
+            @Html.ActionLink("Delete", "EventDelete", new { id=item.Event_Id })
+        </td>
+    </tr>
+}
+
+</table>

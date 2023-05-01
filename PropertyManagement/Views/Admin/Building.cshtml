@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PropertyManagement.Models.Building>
+
+@{
+    ViewBag.Title = "Building";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<h2>Building</h2>
+<div class="form-group form-control">
+    @using (@Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <label class="form-label">Search By:</label>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "Address")
+            <label class="form-check-label" for="inlineRadio1">Address</label>
+        </div>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "City")
+            <label class="form-check-label" for="inlineRadio1">City</label>
+        </div>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "PostalCode")
+            <label class="form-check-label" for="inlineRadio1">Postal Code</label>
+        </div>
+
+        @Html.TextBox("search")
+        <input type="submit" value="search" class="btn btn-outline-primary" />
+    }
+</div>
+<p>
+    @Html.ActionLink("Create New", "BuildingCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "BuildingEdit", new { id = item.Building_Id }) |
+                @Html.ActionLink("Delete", "BuildingDelete", new { id = item.Building_Id })
+            </td>
+        </tr>
+    }
+
+</table>

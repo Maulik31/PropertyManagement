@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RentalManagemetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Appartments">
+          <Key>
+            <PropertyRef Name="Appartment_Id" />
+          </Key>
+          <Property Name="Appartment_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AppartmentNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Size" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Building_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Tenant_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rent" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Appointments">
+          <Key>
+            <PropertyRef Name="Appointment_Id" />
+          </Key>
+          <Property Name="Appointment_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manager_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tenant_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Conformation" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Buildings">
+          <Key>
+            <PropertyRef Name="Building_Id" />
+          </Key>
+          <Property Name="Building_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Building_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Manager_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="Manager_Id" />
+          </Key>
+          <Property Name="Manager_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MoNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Message_Id" />
+          </Key>
+          <Property Name="Message_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manager_Id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tenant_Id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tenants">
+          <Key>
+            <PropertyRef Name="Tenant_Id" />
+          </Key>
+          <Property Name="Tenant_Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MoNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Province" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Appartments_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="Appartments" Type="Self.Appartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="Building_Id" />
+            </Principal>
+            <Dependent Role="Appartments">
+              <PropertyRef Name="Building_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appartments_Tenants">
+          <End Role="Tenants" Type="Self.Tenants" Multiplicity="1" />
+          <End Role="Appartments" Type="Self.Appartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Appartments">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments_Manager">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments_Tenant">
+          <End Role="Tenants" Type="Self.Tenants" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Buildings">
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="Building_Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Building_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Manager">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Tenant">
+          <End Role="Tenants" Type="Self.Tenants" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentalManagemetModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appartments" EntityType="Self.Appartments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tenants" EntityType="Self.Tenants" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Appartments_Buildings" Association="Self.FK_Appartments_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="Appartments" EntitySet="Appartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appartments_Tenants" Association="Self.FK_Appartments_Tenants">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="Appartments" EntitySet="Appartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Manager" Association="Self.FK_Appointments_Manager">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Tenant" Association="Self.FK_Appointments_Tenant">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Buildings" Association="Self.FK_Events_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Managers" Association="Self.FK_Events_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Manager" Association="Self.FK_Message_Manager">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Tenant" Association="Self.FK_Message_Tenant">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentalManagemetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Appartment">
+          <Key>
+            <PropertyRef Name="Appartment_Id" />
+          </Key>
+          <Property Name="Appartment_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AppartmentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Building_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Tenant_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tenant" Relationship="Self.FK_Appartments_Tenants" FromRole="Appartments" ToRole="Tenants" />
+          <NavigationProperty Name="Building" Relationship="RentalManagemetModel.FK_Appartments_Buildings1" FromRole="Appartment" ToRole="Building" />
+          <Property Name="Rent" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="Building_Id" />
+          </Key>
+          <Property Name="Building_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_Events_Buildings" FromRole="Buildings" ToRole="Events" />
+          <NavigationProperty Name="Appartments" Relationship="RentalManagemetModel.FK_Appartments_Buildings1" FromRole="Building" ToRole="Appartment" />
+          <NavigationProperty Name="Events" Relationship="RentalManagemetModel.FK_Events_Buildings1" FromRole="Building" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Event_Id" />
+          </Key>
+          <Property Name="Event_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Building_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Manager_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Building1" Relationship="RentalManagemetModel.FK_Events_Buildings1" FromRole="Event" ToRole="Building" />
+          <NavigationProperty Name="Manager1" Relationship="RentalManagemetModel.FK_Events_Managers1" FromRole="Event" ToRole="Manager" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Manager_Id" />
+          </Key>
+          <Property Name="Manager_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MoNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_Events_Managers" FromRole="Managers" ToRole="Events" />
+          <NavigationProperty Name="Messages" Relationship="RentalManagemetModel.FK_Message_Manager" FromRole="Manager" ToRole="Message" />
+          <NavigationProperty Name="Events" Relationship="RentalManagemetModel.FK_Events_Managers1" FromRole="Manager" ToRole="Event" />
+          <NavigationProperty Name="Appointments" Relationship="RentalManagemetModel.FK_Appointments_Manager" FromRole="Manager" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="Tenant">
+          <Key>
+            <PropertyRef Name="Tenant_Id" />
+          </Key>
+          <Property Name="Tenant_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MoNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Appartments" Relationship="Self.FK_Appartments_Tenants" FromRole="Tenants" ToRole="Appartments" />
+          <NavigationProperty Name="Messages" Relationship="RentalManagemetModel.FK_Message_Tenant" FromRole="Tenant" ToRole="Message" />
+          <NavigationProperty Name="Appointments" Relationship="RentalManagemetModel.FK_Appointments_Tenant" FromRole="Tenant" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="FK_Appartments_Tenants">
+          <End Role="Tenants" Type="Self.Tenant" Multiplicity="1" />
+          <End Role="Appartments" Type="Self.Appartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenants">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Appartments">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Buildings">
+          <End Role="Buildings" Type="Self.Building" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Buildings">
+              <PropertyRef Name="Building_Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Event_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Managers">
+          <End Role="Managers" Type="Self.Manager" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Event_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentalManagemetEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Appartments" EntityType="Self.Appartment" />
+          <EntitySet Name="Buildings" EntityType="Self.Building" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+          <AssociationSet Name="FK_Appartments_Tenants" Association="Self.FK_Appartments_Tenants">
+            <End Role="Tenants" EntitySet="Tenants" />
+            <End Role="Appartments" EntitySet="Appartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Buildings" Association="Self.FK_Events_Buildings">
+            <End Role="Buildings" EntitySet="Buildings" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Managers" Association="Self.FK_Events_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appartments_Buildings1" Association="RentalManagemetModel.FK_Appartments_Buildings1">
+            <End Role="Building" EntitySet="Buildings" />
+            <End Role="Appartment" EntitySet="Appartments" />
+          </AssociationSet>
+          <EntitySet Name="Messages" EntityType="RentalManagemetModel.Message" />
+          <AssociationSet Name="FK_Message_Manager" Association="RentalManagemetModel.FK_Message_Manager">
+            <End Role="Manager" EntitySet="Managers" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Tenant" Association="RentalManagemetModel.FK_Message_Tenant">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Buildings1" Association="RentalManagemetModel.FK_Events_Buildings1">
+            <End Role="Building" EntitySet="Buildings" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Managers1" Association="RentalManagemetModel.FK_Events_Managers1">
+            <End Role="Manager" EntitySet="Managers" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="RentalManagemetModel.Appointment" />
+          <AssociationSet Name="FK_Appointments_Manager" Association="RentalManagemetModel.FK_Appointments_Manager">
+            <End Role="Manager" EntitySet="Managers" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Tenant" Association="RentalManagemetModel.FK_Appointments_Tenant">
+            <End Role="Tenant" EntitySet="Tenants" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          </EntityContainer>
+        <Association Name="FK_Appartments_Buildings1">
+          <End Type="RentalManagemetModel.Building" Role="Building" Multiplicity="1" />
+          <End Type="RentalManagemetModel.Appartment" Role="Appartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="Building_Id" />
+            </Principal>
+            <Dependent Role="Appartment">
+              <PropertyRef Name="Building_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="Message_Id" />
+          </Key>
+          <Property Name="Message_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manager_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tenant_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Manager" Relationship="RentalManagemetModel.FK_Message_Manager" FromRole="Message" ToRole="Manager" />
+          <NavigationProperty Name="Tenant" Relationship="RentalManagemetModel.FK_Message_Tenant" FromRole="Message" ToRole="Tenant" />
+        </EntityType>
+        <Association Name="FK_Message_Manager">
+          <End Type="RentalManagemetModel.Manager" Role="Manager" Multiplicity="0..1" />
+          <End Type="RentalManagemetModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Tenant">
+          <End Type="RentalManagemetModel.Tenant" Role="Tenant" Multiplicity="0..1" />
+          <End Type="RentalManagemetModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Buildings1">
+          <End Type="RentalManagemetModel.Building" Role="Building" Multiplicity="1" />
+          <End Type="RentalManagemetModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="Building_Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Building_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Managers1">
+          <End Type="RentalManagemetModel.Manager" Role="Manager" Multiplicity="1" />
+          <End Type="RentalManagemetModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Appointment_Id" />
+          </Key>
+          <Property Name="Appointment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manager_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tenant_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Conformation" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Manager" Relationship="RentalManagemetModel.FK_Appointments_Manager" FromRole="Appointment" ToRole="Manager" />
+          <NavigationProperty Name="Tenant" Relationship="RentalManagemetModel.FK_Appointments_Tenant" FromRole="Appointment" ToRole="Tenant" />
+        </EntityType>
+        <Association Name="FK_Appointments_Manager">
+          <End Type="RentalManagemetModel.Manager" Role="Manager" Multiplicity="1" />
+          <End Type="RentalManagemetModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointments_Tenant">
+          <End Type="RentalManagemetModel.Tenant" Role="Tenant" Multiplicity="1" />
+          <End Type="RentalManagemetModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenant">
+              <PropertyRef Name="Tenant_Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Tenant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentalManagemetModelStoreContainer" CdmEntityContainer="RentalManagemetEntities1">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appartments">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Appartment">
+              <MappingFragment StoreEntitySet="Appartments">
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="Appartment_Id" ColumnName="Appartment_Id" />
+                <ScalarProperty Name="AppartmentNumber" ColumnName="AppartmentNumber" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Building_Id" ColumnName="Building_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Tenant_Id" ColumnName="Tenant_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buildings">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Building">
+              <MappingFragment StoreEntitySet="Buildings">
+                <ScalarProperty Name="Building_Id" ColumnName="Building_Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
+                <ScalarProperty Name="Building_Id" ColumnName="Building_Id" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Manager">
+              <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MoNumber" ColumnName="MoNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenants">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Tenant">
+              <MappingFragment StoreEntitySet="Tenants">
+                <ScalarProperty Name="Tenant_Id" ColumnName="Tenant_Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MoNumber" ColumnName="MoNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="Message1" ColumnName="Message" />
+                <ScalarProperty Name="Tenant_Id" ColumnName="Tenant_Id" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="Message_Id" ColumnName="Message_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="RentalManagemetModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="Conformation" ColumnName="Conformation" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Tenant_Id" ColumnName="Tenant_Id" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+                <ScalarProperty Name="Appointment_Id" ColumnName="Appointment_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PropertyManagement.Models.Appartment>
+
+@{
+    ViewBag.Title = "Appartment";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<h2>Appartment</h2>
+LS
+<p>
+    @Html.ActionLink("Create New", "AppartmentCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppartmentNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Building_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Building.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rent)
+        </th>
+        <th>
+            Tenant Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppartmentNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Size)
+        </td>
+
+        <td>
+
+            @if (item.Status == false)
+            {
+                <label class="btn btn-danger">Not Availabel</label>
+            }
+            else
+            {
+                <label class="btn btn-success">Availabel</label>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "AppartmentEdit", new { id = item.Appartment_Id }) |
+            @Html.ActionLink("Delete", "AppartmentDelete", new { id = item.Appartment_Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PropertyManagement.Models.Appartment>
+
+@{
+    ViewBag.Title = "Appartment";
+    Layout = "~/Views/Tenant/_LayoutTenant.cshtml";
+}
+
+<h2>Appartment</h2>
+<div class="form-group form-control">
+    @using (@Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <label class="form-label">Search By:</label>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "Address")
+            <label class="form-check-label" for="inlineRadio1">Address</label>
+        </div>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "Size")
+            <label class="form-check-label" for="inlineRadio1">Size</label>
+        </div>
+        <div class="form-check form-check-inline">
+            @Html.RadioButton("SearchBy", "Rent")
+            <label class="form-check-label" for="inlineRadio1">Rent</label>
+        </div>
+
+        @Html.TextBox("search")
+        <input type="submit" value="search" class="btn btn-outline-primary" />
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppartmentNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Building.Address)
+        </th>
+      
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppartmentNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Size)
+        </td>
+        <td>
+            @if (item.Status == false)
+            {
+                <label class="btn btn-danger">Not Availabel</label>
+            }
+            else
+            {
+                <label class="btn btn-success">Availabel</label>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building.Address)
+        </td>
+      
+    </tr>
+}
+
+</table>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PropertyManagement.Models.Appointment>
+
+@{
+    ViewBag.Title = "Appointment";
+    Layout = "~/Views/Manager/_LayoutManager.cshtml";
+}
+
+<h2>Appointment</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AppointmentCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Conformation)
+        </th>
+     
+        <th>
+           Tenant Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @if (item.Conformation == false)
+            {
+                <label class="btn btn-danger">Not Conformed</label>
+            }
+            else
+            {
+                <label class="btn btn-success">Conformed</label>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "AppointmentEdit", new { id=item.Appointment_Id }) |
+            @Html.ActionLink("Delete", "AppointmentDelete", new { id=item.Appointment_Id })
+        </td>
+    </tr>
+}
+
+</table>
