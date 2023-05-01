@@ -424,7 +424,7 @@ namespace PropertyManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Event");
             }
-s
+
             ViewBag.Building_Id = new SelectList(db.Buildings, "Building_Id", "Address", @event.Building_Id);
             ViewBag.Manager_Id = new SelectList(db.Managers, "Manager_Id", "FirstName", @event.Manager_Id);
             return View(@event);
